@@ -1,3 +1,5 @@
+lab01a
+
 Como compilar o programa na plataforma disponibilizada;
 
 Primeiramente eu criei um diretorio chamado meus_scripts usando mkdir meus_scripts, após isso
