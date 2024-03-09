@@ -11,7 +11,9 @@ Como executar o programa;
 
 Para executar o código, fiz update da lista de pacotes disponíveis e os pacotes já instalados usando sudo yum update -y e instalei o compilador C mais comum, o GCC (GNU Compiler Collection) por meio do comando: sudo yum install gcc
 
-com isso executei os programas por meio desses comandos: 
+com isso executei os programas por meio desses comandos:
+
+
 gcc -o pef_fork_teste pef_fork_teste.c 
 ./pef_fork_teste
 
