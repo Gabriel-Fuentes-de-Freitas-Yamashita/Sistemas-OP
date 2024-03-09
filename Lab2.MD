@@ -22,3 +22,5 @@ gcc -o pef_fork pef_fork.c
 
 Para comprovar que os resultados propostos foram alcançados, seguem os prints relacionados ao terminal;
 
+![image](C:\Users\bielf\Pictures\Saved Pictures\print.png)
+
