@@ -1,5 +1,19 @@
 Lab2 ex1 
 
+
+integrantes:
+
+RA:10409259
+
+
+Matheus Tobias Mustaro
+
+RA: 10408876
+
+
+Gabriel Fuentes de Freitas Yamashita 
+
+
 Como compilar o programa na plataforma disponibilizada;
 
 
