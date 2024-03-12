@@ -1,11 +1,15 @@
 Lab2 ex1 
 
 Você é capaz de identificar os trechos executados por pai e filho?
+
+
 Pai: A parte do código dentro do else após o fork() é executada pelo pai. Ele imprime uma mensagem indicando que é o pai e espera pelo término do filho.
 Filho: A parte do código dentro do else if (pid == 0) é executada pelo filho. Ele imprime uma mensagem indicando que é o filho e executa o comando ls
 
 
 Quantos processos serão criados?
+
+
 Como há três chamadas de fork(), o número total de processos criados será 23=823=8.
 
 integrantes:
