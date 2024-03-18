@@ -15,6 +15,9 @@ entre a thread e o processo pai.
 
 IMAGEM DO CONSOLE
 
+![image](https://github.com/Gabriel-Fuentes-de-Freitas-Yamashita/Sistemas-OP/assets/161405047/9d58427e-cddb-47e8-a341-54a0da2c502f)
+
+
 De acordo com o Resultado do Console acima, podemos perceber que primeiramente, a thread filho é criada, a parte disso, mostramos qual será o número base de nossa operação (x * 2), seguinte a isso, o thread filho espera o sinal do pai, no caso o resultado da operação, chegar para ele, a thread filho exibe o resultado. Para comprovarmos que funcionou, podemos ver que a operação 10*2 deu o resultado esperado, no caso 20.
 
 
