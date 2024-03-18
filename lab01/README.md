@@ -17,4 +17,4 @@ print do hello.py sendo exibido no console :)
 
 print que achei interessante de postar aqui
 
-image
+![image](https://github.com/Gabriel-Fuentes-de-Freitas-Yamashita/Sistemas-OP/assets/161405047/38fe7a3d-7d90-4311-9a5b-f47112cf68c0)
