@@ -13,7 +13,7 @@ Para comprovar que os resultados propostos foram alcançados, seguem os prints r
 
 print do hello.py sendo exibido no console :)
 
-image
+![image](https://github.com/Gabriel-Fuentes-de-Freitas-Yamashita/Sistemas-OP/assets/161405047/1cae33c9-3659-4540-ad6a-dd1229b07195)
 
 print que achei interessante de postar aqui
 
