@@ -75,9 +75,8 @@ Processos oferecem um maior nível de isolamento entre as unidades de execução
 A implementação utilizando threads é mais eficiente na solução do problema da escada rolante devido ao compartilhamento direto de recursos, menor overhead de recursos e melhor desempenho em tarefas que envolvem comunicação frequente e compartilhamento de dados. Isso ocorre porque as threads compartilham o mesmo espaço de endereçamento, simplificando a comunicação e sincronização entre unidades de execução. Além disso, criar e gerenciar threads dentro de um processo é mais leve em termos de recursos do sistema do que criar processos separados.
 
 
-## Instalação
+## Teste
 
-Usando o `git`, clone o repositório usando o seguinte comando:
+![image](https://github.com/Gabriel-Fuentes-de-Freitas-Yamashita/Sistemas-OP/assets/161405047/3a47709c-d69e-4acf-8c4c-acc35bae0a0b)
 
-`git clone git@github.com:Gabriel-Fuentes-de-Freitas-Yamashita/Sistemas-OP.git`, depois `cd Sistemas-OP` para entrar na pasta e o comando `cd Projeto` para entrar na pasta do trabalho
 
