@@ -1,9 +1,0 @@
-Escada- Rolante com Thread
-
-Função escadaRolante: Recebe um array de tempos t, um array de distâncias d e um inteiro n que representa o número de passageiros. A função simula o movimento das pessoas na escada rolante, mantendo o controle do tempo e da direção do movimento. Retorna o último instante em que a escada rolante para.Função lerData: Recebe o caminho de um arquivo como argumento. Abre o arquivo, lê o número de passageiros n e em seguida lê os tempos t e distâncias d de cada passageiro, armazenando-os nos arrays t e d respectivamente.Função threadFunc: Esta função é chamada pela thread criada no main. Recebe um array de inteiros como argumento, chama a função escadaRolante com os parâmetros apropriados e imprime o último instante em que a escada para.Função main:Lê o caminho do arquivo de entrada.Chama a função lerData para ler os dados do arquivo e armazená-los nos arrays t e d.Cria um array arr que contém os tempos e distâncias de todos os passageiros, além do número total de passageiros.Cria uma thread que chama a função threadFunc com o array arr como argumento.Espera a thread terminar usando pthread_join.
-
-
-
-Escada- Rolante com Processo
-
-A função escadaRolante recebe como argumentos três arrays: t (tempos de entrada dos passageiros), d (direções dos passageiros, onde -1 indica que o passageiro está descendo e 1 indica que está subindo), e n (número total de passageiros).O código utiliza um loop para simular o funcionamento da escada rolante, considerando a chegada e a saída de cada passageiro, assim como a mudança de direção da escada, se necessário.No main, o programa cria um processo filho usando fork() para executar a simulação da escada rolante. O processo pai aguarda a conclusão do processo filho com wait(), e então termina a execução.Por fim, o programa exibe o último instante em que a escada para de funcionar, ou seja, quando todos os passageiros já saíram da escada.
