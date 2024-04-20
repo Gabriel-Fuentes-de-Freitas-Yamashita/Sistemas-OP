@@ -4,56 +4,66 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
+// Variável global para controlar a direção da escada
+int direcao_escada = -1; // Inicialmente, a escada está parada
+
 int escadaRolante(int* t, int* d, int n) {
-  int tempoAtual = t[0], distanciaAtual = d[0];
-  int mainIndice = 0;
-  int auxIndice = 0;
-  int chegadaEsperada; 
-  int tempoPendente[10000], direcPendente[10000], passageirosRestantes = n, ultimoInstante = 0, direcao = -1, instante = 0;
-  bool pending = false;
+    int tempoAtual = t[0], distanciaAtual = d[0];
+    int mainIndice = 0;
+    int auxIndice = 0;
+    int chegadaEsperada; 
+    int tempoPendente[10000], direcPendente[10000], passageirosRestantes = n, ultimoInstante = 0, direcao = -1, instante = 0;
+    bool pending = false;
 
-  while (passageirosRestantes > 0) {
-    if (pending && (t[mainIndice] > chegadaEsperada || mainIndice >= n)) {
-    tempoAtual = tempoPendente[0];
-    distanciaAtual = direcPendente[0];
-    instante += 10;
-    direcao = distanciaAtual;
-    chegadaEsperada = instante + 10;
-    passageirosRestantes--;
-    pending = false;
-    } else {
-    tempoAtual = t[mainIndice];
-    distanciaAtual = d[mainIndice];
+    while (passageirosRestantes > 0) {
+        if (pending && (t[mainIndice] > chegadaEsperada || mainIndice >= n)) {
+            tempoAtual = tempoPendente[0];
+            distanciaAtual = direcPendente[0];
+            instante += 10;
+            direcao = distanciaAtual;
+            chegadaEsperada = instante + 10;
+            passageirosRestantes--;
+            pending = false;
+        } else {
+            tempoAtual = t[mainIndice];
+            distanciaAtual = d[mainIndice];
 
-      if (direcao == -1) {
-        instante = tempoAtual < instante ? instante : tempoAtual;
-        direcao = distanciaAtual;
-        chegadaEsperada = tempoAtual + 10;
-        mainIndice++;
-        passageirosRestantes--;
-      } else if (direcao == distanciaAtual) {
-        instante = tempoAtual;
-        chegadaEsperada = tempoAtual + 10;
-        mainIndice++;
-        passageirosRestantes--;
-      } else {
-        if (t[mainIndice + 1] - t[mainIndice] > t[mainIndice - 1]) {
-          instante = chegadaEsperada;
-          direcao = -1;
-        } else if (t[mainIndice + 1] <= chegadaEsperada) {
-          tempoPendente[0] = t[mainIndice]; 
-          direcPendente[0] = d[mainIndice];
-          pending = true;
-          mainIndice++;
+            // Verificar e atualizar a direção da escada
+            if (direcao_escada != distanciaAtual) {
+                printf("A direcao da escada mudou para %s.\n", (distanciaAtual == 0 ? "baixo" : "cima"));
+                direcao_escada = distanciaAtual;
+            }
+
+            if (direcao == -1) {
+                instante = tempoAtual < instante ? instante : tempoAtual;
+                direcao = distanciaAtual;
+                chegadaEsperada = tempoAtual + 10;
+                mainIndice++;
+                passageirosRestantes--;
+            } else if (direcao == distanciaAtual) {
+                instante = tempoAtual;
+                chegadaEsperada = tempoAtual + 10;
+                mainIndice++;
+                passageirosRestantes--;
+            } else {
+                if (t[mainIndice + 1] - t[mainIndice] > t[mainIndice - 1]) {
+                    instante = chegadaEsperada;
+                    direcao = -1;
+                } else if (t[mainIndice + 1] <= chegadaEsperada) {
+                    tempoPendente[0] = t[mainIndice]; 
+                    direcPendente[0] = d[mainIndice];
+                    pending = true;
+                    mainIndice++;
+                }
+            }
         }
-      }
     }
-  }
 
-  instante += 10;
-  ultimoInstante = instante;
+    instante += 10;
+    ultimoInstante = instante;
 
-  return ultimoInstante;
+    return ultimoInstante;
+
 }
 
 void lerData(char* caminhoArquivo, int* t, int* d, int* n) {
