@@ -79,5 +79,5 @@ A implementação utilizando threads é mais eficiente na solução do problema 
 
 ![image](https://github.com/Gabriel-Fuentes-de-Freitas-Yamashita/Sistemas-OP/assets/161405047/3a47709c-d69e-4acf-8c4c-acc35bae0a0b)
 
-- Como é possivel perceber a entrada de num 10 carrega infinitamente e n conseguimos resolver este problema.
+- Como é possivel perceber a entrada de num 10 carrega infinitamente e não conseguimos resolver este problema.
 
