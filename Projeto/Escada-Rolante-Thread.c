@@ -1,111 +1,121 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-#include <unistd.h>
-#include <sys/wait.h>
 #include <pthread.h>
 
-int escadaRolante(int* t, int* d, int n) {
-  int tempoAtual = t[0], distanciaAtual = d[0];
-  int mainIndice = 0;
-  int auxIndice = 0;
-  int chegadaEsperada; 
-  int tempoPendente[10000], direcPendente[10000], passageirosRestantes = n, ultimoInstante = 0, direcao = -1, instante = 0;
-  bool pending = false;
+#define MAX_DATA_SIZE 10000
+#define MAX_FILENAME_LENGTH 100
 
-  while (passageirosRestantes > 0) {
-    if (pending && (t[mainIndice] > chegadaEsperada || mainIndice >= n)) {
-    tempoAtual = tempoPendente[0];
-    distanciaAtual = direcPendente[0];
-    instante += 10;
-    direcao = distanciaAtual;
-    chegadaEsperada = instante + 10;
-    passageirosRestantes--;
-    pending = false;
-    } else {
-    tempoAtual = t[mainIndice];
-    distanciaAtual = d[mainIndice];
+int direcao_escada = -1;
+pthread_mutex_t mutex = PTHREAD_MUTEX_INITIALIZER;
 
-      if (direcao == -1) {
-        instante = tempoAtual < instante ? instante : tempoAtual;
-        direcao = distanciaAtual;
-        chegadaEsperada = tempoAtual + 10;
-        mainIndice++;
-        passageirosRestantes--;
-      } else if (direcao == distanciaAtual) {
-        instante = tempoAtual;
-        chegadaEsperada = tempoAtual + 10;
-        mainIndice++;
-        passageirosRestantes--;
-      } else {
-        if (t[mainIndice + 1] - t[mainIndice] > t[mainIndice - 1]) {
-          instante = chegadaEsperada;
-          direcao = -1;
-        } else if (t[mainIndice + 1] <= chegadaEsperada) {
-          tempoPendente[0] = t[mainIndice]; 
-          direcPendente[0] = d[mainIndice];
-          pending = true;
-          mainIndice++;
-        }
-      }
+// Function prototypes
+void lerData(const char* caminhoArquivo, int* t, int* d, int* n);
+int escadaRolante(int* t, int* d, int n);
+void* threadFunc(void* arg);
+
+void lerData(const char* caminhoArquivo, int* t, int* d, int* n) {
+    FILE* file = fopen(caminhoArquivo, "r");
+    if (file == NULL) {
+        printf("Erro ao abrir o arquivo %s.\n", caminhoArquivo);
+        exit(1);
     }
-  }
 
-  instante += 10;
-  ultimoInstante = instante;
-
-  return ultimoInstante;
+    fscanf(file, "%d", n);
+    for (int i = 0; i < *n; i++) {
+        fscanf(file, "%d %d", &t[i], &d[i]);
+    }
+    fclose(file);
 }
 
-void lerData(char* caminhoArquivo, int* t, int* d, int* n) {
-  FILE* file = fopen(caminhoArquivo, "r");
-  if (file == NULL) {
-    printf("Ocorreu um erro ao abrir o arquivo %s.\n", caminhoArquivo);
-    exit(1);
-  }
+int escadaRolante(int* t, int* d, int n) {
+    int tempoAtual = t[0], distanciaAtual = d[0];
+    int mainIndice = 0;
+    int auxIndice = 0;
+    int chegadaEsperada; 
+    int tempoPendente[MAX_DATA_SIZE], direcPendente[MAX_DATA_SIZE], passageirosRestantes = n, ultimoInstante = 0, direcao = -1, instante = 0;
+    bool pending = false;
 
-  fscanf(file, "%d", n);
-  for (int i = 0; i < *n; i++) {
-    fscanf(file, "%d %d", &t[i], &d[i]);
-  }
-  fclose(file);
+    while (passageirosRestantes > 0) {
+        if (pending && (t[mainIndice] > chegadaEsperada || mainIndice >= n)) {
+            tempoAtual = tempoPendente[0];
+            distanciaAtual = direcPendente[0];
+            instante += 10;
+            direcao = distanciaAtual;
+            chegadaEsperada = instante + 10;
+            passageirosRestantes--;
+            pending = false;
+        } else {
+            tempoAtual = t[mainIndice];
+            distanciaAtual = d[mainIndice];
+
+            if (direcao == -1) {
+                instante = tempoAtual < instante ? instante : tempoAtual;
+                direcao = distanciaAtual;
+                chegadaEsperada = tempoAtual + 10;
+                mainIndice++;
+                passageirosRestantes--;
+            } else if (direcao == distanciaAtual) {
+                instante = tempoAtual;
+                chegadaEsperada = tempoAtual + 10;
+                mainIndice++;
+                passageirosRestantes--;
+            } else {
+                if (t[mainIndice + 1] - t[mainIndice] > t[mainIndice - 1]) {
+                    instante = chegadaEsperada;
+                    direcao = -1;
+                } else if (t[mainIndice + 1] <= chegadaEsperada) {
+                    tempoPendente[0] = t[mainIndice]; 
+                    direcPendente[0] = d[mainIndice];
+                    pending = true;
+                    mainIndice++;
+                }
+            }
+        }
+    }
+
+    instante += 10;
+    ultimoInstante = instante;
+
+    return ultimoInstante;
 }
 
 void* threadFunc(void* arg) {
-  int* arr = (int*)arg;
-  int ultimoInstante = escadaRolante(arr, (arr+10000), *(arr+20000));
-  printf("O ultimo instante em que a escada para e %d\n", ultimoInstante);
-  pthread_exit(0);
+    int* arr = (int*)arg;
+    int ultimoInstante = escadaRolante(arr, arr + MAX_DATA_SIZE, arr[MAX_DATA_SIZE * 2]);
+    printf("O ultimo instante em que a escada para e %d\n", ultimoInstante);
+    pthread_exit(NULL);
 }
 
 int main() {
-  int t[10000], d[10000], n;
-  char caminhoArquivo[100];
+    int t[MAX_DATA_SIZE], d[MAX_DATA_SIZE], n;
+    char caminhoArquivo[MAX_FILENAME_LENGTH];
 
-  printf("Digite o diretorio e o arquivo que deseja usar: ");
-  scanf("%s", caminhoArquivo);
+    printf("Digite o diretorio e o arquivo que deseja usar: ");
+    scanf("%s", caminhoArquivo);
 
-  lerData(caminhoArquivo, t, d, &n);
+    lerData(caminhoArquivo, t, d, &n);
 
-  int arr[20001];
-  for(int i = 0; i < 10000; i++) {
-    arr[i] = t[i];
-    arr[i+10000] = d[i];
-  }
-  arr[20000] = n;
+    int arr[MAX_DATA_SIZE * 2 + 1];
+    for (int i = 0; i < MAX_DATA_SIZE; i++) {
+        arr[i] = t[i];
+        arr[i + MAX_DATA_SIZE] = d[i];
+    }
+    arr[MAX_DATA_SIZE * 2] = n;
 
-  pthread_t thread;
-  if(pthread_create(&thread, NULL, threadFunc, (void*)arr)) {
-    fprintf(stderr, "Erro ao criar a thread.\n");
-    return 1;
-  }
+    pthread_t thread;
+    if (pthread_create(&thread, NULL, threadFunc, (void*)arr)) {
+        fprintf(stderr, "Erro ao criar a thread.\n");
+        return 1;
+    }
 
-  if(pthread_join(thread, NULL)) {
-    fprintf(stderr, "Erro ao juntar a thread.\n");
-    return 2;
-  }
+    if (pthread_join(thread, NULL)) {
+        fprintf(stderr, "Erro ao juntar a thread.\n");
+        return 2;
+    }
 
-  return 0;
+    // Destroy the mutex
+    pthread_mutex_destroy(&mutex);
+
+    return 0;
 }
-
-
