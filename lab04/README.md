@@ -9,9 +9,11 @@ Gabriel Fuentes de Freitas Yamashita
 RA: 10408876
 
 Exercicio:
+
 Construa uma solução utilizando pthreads para resolver o problema da multiplicação matriz-vetor.
 
 Codigo:
+
 Definimos as linhas e colunas como tamanho 3x3, e os vetores da matriz são:
 [ 1 2 3 ]
 [ 4 5 6 ]
