@@ -1,3 +1,5 @@
+//Matheus Tobias 10409259 e Gabriel
+
 #include <stdio.h>
 #include <pthread.h>
 #include <stdlib.h>
