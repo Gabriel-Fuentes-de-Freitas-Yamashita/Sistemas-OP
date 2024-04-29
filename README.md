@@ -12,3 +12,5 @@ Exercicio:
 Construa uma solução utilizando pthreads para resolver o problema da multiplicação matriz-vetor.
 
 
+
+
