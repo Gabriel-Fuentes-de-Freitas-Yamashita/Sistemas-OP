@@ -1,6 +1,6 @@
-LAB 04
+# LAB 04
 
-Integrantes:
+## Integrantes:
 
 Matheus Tobias Mustaro
 
@@ -11,12 +11,12 @@ Gabriel Fuentes de Freitas Yamashita
 RA: 10408876
 
 
-Exercicio:
+## Exercicio:
 
 Construa uma solução utilizando pthreads para resolver o problema da multiplicação matriz-vetor.
 
 
-Codigo:
+## Codigo:
 
 Definimos as linhas e colunas como tamanho 3x3, e os vetores da matriz são:
 
