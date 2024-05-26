@@ -15,10 +15,15 @@ Alteramos o código inicial para que o problema seja corrigido utilizando a bibl
 
 Os resultados obtidos estão nos prints abaixo.
 
-Prints com 20 transações e valor de transferência 10
+# Print com 20 transações e valor de transferência 10
 
 (saldo from = 100, saldo to = 100)
 
 ![image](https://github.com/Gabriel-Fuentes-de-Freitas-Yamashita/Sistemas-OP/assets/161405047/9a2479f6-2613-4e8b-9c68-3054c454a01f)
 
+# Print com 30 transações e valor de transferência 20
 
+(saldo from = 100, saldo to = 100)
+
+![image](https://github.com/Gabriel-Fuentes-de-Freitas-Yamashita/Sistemas-OP/assets/161405047/77130ee1-982a-4bd2-8596-d8929d9d91bc)
+![image](https://github.com/Gabriel-Fuentes-de-Freitas-Yamashita/Sistemas-OP/assets/161405047/f87afb03-9471-49dc-aa6a-48f343968332)
